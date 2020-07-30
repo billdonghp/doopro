@@ -20,8 +20,8 @@
             >
               <span class="el-dorpdown-link"><i class="el-icon-setting"></i>选项<i class="el-icon-arrow-down el-icon--right" /></span>
               <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item command="/about">有形效果产出方法</el-dropdown-item>
-                <el-dropdown-item command="/info">评价基准</el-dropdown-item>
+                <el-dropdown-item command="about">有形效果产出方法</el-dropdown-item>
+                <el-dropdown-item command="info">评价基准</el-dropdown-item>
                 <el-dropdown-item>用户手册</el-dropdown-item>
                 <el-dropdown-item>获取帮助</el-dropdown-item>
               </el-dropdown-menu>

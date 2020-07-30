@@ -2,6 +2,21 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 Vue.use(Vuex)
+const modulea = {
+  state: {
+    count: 4
+  },
+  mutations: {
+    add: (state) => {
+      state.count++
+    }
+  }
+}
+const moduleb = {
+  state: {
+    count: 3
+  }
+}
 
 export default new Vuex.Store({
   state: {
@@ -13,6 +28,10 @@ export default new Vuex.Store({
       { name: 'c#', price: 32, flag: false }]
   },
   getters: {
+    // 调用getters中的方法
+    donebooksCount: (state, getters) => {
+      return `books：${getters.donebooks.length} 本符合条件`
+    },
     donebooks (state) {
       return state.bookes.filter(book => book.flag)
     },
@@ -58,5 +77,7 @@ export default new Vuex.Store({
     }
   },
   modules: {
+    a: modulea,
+    b: moduleb
   }
 })

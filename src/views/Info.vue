@@ -1,9 +1,9 @@
 <template>
   <div>
-
+    <p>{{ donebooksByName('python') }}</p>
     <ul>
       <li
-        v-for="(item,index) in books"
+        v-for="(item,index) in donebooksByName('python')"
         :key="index"
       >{{item.name}} : {{item.price}}</li>
     </ul>
@@ -27,29 +27,45 @@
   </div>
 </template>
 <script>
+import { mapState, mapGetters, mapMutations, mapActions } from 'vuex'
 export default {
   name: 'info',
   methods: {
-    add () {
-      this.$store.commit('add')
-    },
-    subtract () {
-      this.$store.commit('subtract')
-    },
-    addAction () {
-      this.$store.dispatch('addAction')
-    },
-    subtractAction () {
-      this.$store.dispatch('subtractAction')
-    }
+    ...mapMutations([
+      'add',
+      'subtract'
+    ]),
+    ...mapActions([
+      'addAction',
+      'subtractAction'
+    ])
+    // add () {
+    //   this.$store.commit('add')
+    // },
+    // subtract () {
+    //   this.$store.commit('subtract')
+    // },
+    // addAction () {
+    //   this.$store.dispatch('addAction')
+    // },
+    // subtractAction () {
+    //   this.$store.dispatch('subtractAction')
+    // }
   },
   computed: {
-    age () {
-      return `Store.state.age: ${this.$store.state.age}`
-    },
-    books () {
-      return this.$store.getters.donebooksByName('java')
-    }
+    ...mapState([
+      'age'
+    ]),
+    // age () {
+    //   return `Store.state.age: ${this.$store.state.age}`
+    // },
+    // books () {
+    //   return this.$store.getters.donebooksByName('java')
+    // },
+    ...mapGetters([
+      'donebooksCount',
+      'donebooksByName'
+    ])
   }
 }
 </script>
