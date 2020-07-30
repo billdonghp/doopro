@@ -1,5 +1,16 @@
 <template>
-  <div class="about">
-    <h1>This is an about page</h1>
-  </div>
+  <el-button @click="aboutsay()">About</el-button>
 </template>
+<script>
+export default {
+  data () {
+    return {}
+  },
+  methods: {
+    aboutsay () {
+      alert('hi')
+      this.$router.push('info')
+    }
+  }
+}
+</script>
