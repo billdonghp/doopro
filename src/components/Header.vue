@@ -22,7 +22,7 @@
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item command="about">有形效果产出方法</el-dropdown-item>
                 <el-dropdown-item command="info">评价基准</el-dropdown-item>
-                <el-dropdown-item>用户手册</el-dropdown-item>
+                <el-dropdown-item command="user">用户手册</el-dropdown-item>
                 <el-dropdown-item>获取帮助</el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
@@ -59,26 +59,30 @@ export default {
   },
   computed: {
     icon () {
-      return this.flag === '1' ? 'true' : 'false'
+      return this.$store.state.loginflag
     }
   },
   methods: {
     handlerCommand (command) {
       if (this.$store.state.token && this.$store.state.loginflag) {
         this.$router.push(command)
+      } else {
+        alert('请登陆！')
+        this.$emit('loginevent')
       }
       // console.log(command)
     },
     handleLogin () {
       if (this.$store.state.loginflag) {
+        alert('退出')
         window.localStorage.removeItem('username')
         this.$store.commit('logout')
-        this.$router.push('/')
-        // alert('退出')
+        if (this.$router.history.current.fullPath !== '/') {
+          this.$router.push('/')
+        }
       } else {
+        alert('登陆')
         this.$emit('loginevent')
-        // this.$store.commit('login', { username: window.localStorage.getItem('username') })
-        // alert('登陆')
       }
     }
   }

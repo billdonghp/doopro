@@ -7,10 +7,10 @@
     <el-container>
       <el-header>
         <Header
-          :flag="flag"
           @loginevent="loginevent"
         />
       </el-header>
+      <p>{{ loginflag }}</p>
       <router-view />
     </el-container>
     <el-dialog
@@ -55,6 +55,7 @@
 <script>
 // @ is an alias to /src
 import Header from '@/components/Header.vue'
+import { mapState } from 'vuex'
 
 export default {
   name: 'Home',
@@ -63,23 +64,27 @@ export default {
   },
   data () {
     return {
-      flag: '',
       dialogVisiable: false,
       form: {
-        isSave: '',
+        isSave: false,
         username: '',
         password: ''
       }
     }
   },
+  computed: {
+    ...mapState([
+      'loginflag'
+    ])
+  },
   methods: {
     onSubmit () {
       if (this.form.username === '20120262' && this.form.password === '123') {
-        console.log(this.form)
         this.dialogVisiable = false
         this.$store.commit('login', { username: this.form.username })
-        // this.$router.push('main')
-        window.localStorage.setItem('username', this.form.username)
+        if (this.form.isSave) {
+          localStorage.setItem('username', this.form.username)
+        }
       }
     },
     handleClose () {
@@ -90,13 +95,10 @@ export default {
     }
   },
   mounted () {
-    if (window.localStorage.getItem('username')) {
+    if (localStorage.getItem('username')) {
       this.dialogVisiable = false
-      this.flag = '1'
-      // this.$router.push('main')
     } else {
       this.dialogVisiable = true
-      this.flag = '2'
     }
   }
 }

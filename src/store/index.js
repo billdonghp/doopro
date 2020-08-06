@@ -1,22 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import login from './login'
 
 Vue.use(Vuex)
-const modulea = {
-  state: {
-    count: 4
-  },
-  mutations: {
-    add: (state) => {
-      state.count++
-    }
-  }
-}
-const moduleb = {
-  state: {
-    count: 3
-  }
-}
 
 export default new Vuex.Store({
   state: {
@@ -40,6 +26,9 @@ export default new Vuex.Store({
     }
   },
   mutations: {
+    flag (state) {
+      return state.loginflag
+    },
     edit (state, payload) {
       console.log(payload)
       state.age = payload.age
@@ -77,7 +66,6 @@ export default new Vuex.Store({
     }
   },
   modules: {
-    a: modulea,
-    b: moduleb
+    login
   }
 })

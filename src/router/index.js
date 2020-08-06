@@ -8,29 +8,34 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    name: 'Home',
+    name: 'home',
     component: Home,
     meta: { requiresAuth: true },
     children: [
       {
         path: '/about',
-        name: 'About',
+        name: 'about',
         component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
       }, {
         path: '/info',
-        name: 'Info',
+        name: 'info',
         component: () => import(/* webpackChunkName: "info" */ '../views/Info.vue')
+      }, {
+        path: '/user',
+        name: 'user',
+        props: true,
+        component: () => import(/* webpackChunkName: "user" */ '../views/User.vue')
       }
     ]
   },
   {
     path: '/login',
-    name: 'Login',
+    name: 'login',
     component: Login
   },
   {
     path: '/main',
-    name: 'Main',
+    name: 'main',
     meta: { requiresAuth: true }, // 添加表示需要验证
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route

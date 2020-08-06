@@ -12,24 +12,12 @@ axios.defaults.baseURL = 'http://newdoopro.doosaninfracore.cn:8080/doopro/'
 Vue.prototype.$axios = axios
 
 router.beforeEach((to, from, next) => {
-  // if (to.path === '/about') {
-  //   next()
-  // } else if (to.path === '/main') {
-  //   next()
-  // } else if (to.path === '/info') {
-  //   next()
-  // } else if (to.path === '/') {
-  //   next()
-  // } else {
-  //   next({ path: '/' })
-  // }
   if (to.matched.some(record => record.meta.requiresAuth)) {
     // 这里判断用户是否登录，验证本地存储是否有token
-    console.log(`token: ${store.state.token} flge: ${store.state.loginflag}`)
+    if (localStorage.getItem('username')) {
+      store.commit('login', { username: localStorage.getItem('username') })
+    }
     if (!store.state.token && !store.state.loginflag) { // 判断当前的token是否存在
-      // next({
-      //   path: '/login'
-      // })
       if (to.path === '/') {
         next()
       } else {

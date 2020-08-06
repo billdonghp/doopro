@@ -8,7 +8,9 @@
       >{{item.name}} : {{item.price}}</li>
     </ul>
     <p>{{ age }}</p>
-    <el-button
+    <div>
+    <el-button-group>
+      <el-button
       type="primary"
       @click="add"
     ><i class="el-icon-plus"></i></el-button>
@@ -16,6 +18,10 @@
       type="primary"
       @click="subtract"
     ><i class="el-icon-minus"></i></el-button>
+    </el-button-group>
+    </div>
+    <div>
+    <el-button-group>
     <el-button
       type="danger"
       @click="addAction"
@@ -24,6 +30,8 @@
       type="danger"
       @click="subtractAction"
     ><i class="el-icon-minus"></i></el-button>
+    </el-button-group>
+    </div>
   </div>
 </template>
 <script>
