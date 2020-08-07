@@ -7,7 +7,7 @@
         :key="index"
       >{{item.name}} : {{item.price}}</li>
     </ul>
-    <p>{{ age }}</p>
+    <p>{{ getUserInfo }}</p>
     <div>
     <el-button-group>
       <el-button
@@ -64,16 +64,21 @@ export default {
     ...mapState([
       'age'
     ]),
+    ...mapState('user', ['userStatus', 'userLevel']),
     // age () {
     //   return `Store.state.age: ${this.$store.state.age}`
     // },
     // books () {
     //   return this.$store.getters.donebooksByName('java')
     // },
+    ...mapGetters('user', ['getUserInfo']),
     ...mapGetters([
       'donebooksCount',
       'donebooksByName'
     ])
+  },
+  mounted () {
+    console.log(this.userStatus, this.userLevel, '-------->')
   }
 }
 </script>

@@ -1,7 +1,7 @@
 <template>
   <div id="user">
     <div>User {{ username }}</div>
-    <el-button type="primary" @click="goinfo">回退</el-button>
+    <el-button type="primary" @click="goinfo">充值</el-button>
   </div>
 </template>
 
@@ -11,7 +11,8 @@ export default {
   props: ['username'],
   methods: {
     goinfo () {
-      this.$router.go(-1)
+      // this.$router.go(-1)
+      this.$store.commit('user/setMemberInfo', { userStatus: 1, userLevel: 0 })
     }
   }
 }

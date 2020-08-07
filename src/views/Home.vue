@@ -10,8 +10,15 @@
           @loginevent="loginevent"
         />
       </el-header>
-      <p>{{ loginflag }}</p>
-      <router-view />
+      <el-container>
+        <el-aside width="200px"><MyMenu></MyMenu></el-aside>
+        <el-main>
+          <p>你好</p>
+          <h1>尊敬的 {{ getMemberInfo }} 用户</h1>
+          <router-view />
+        </el-main>
+      </el-container>
+      <!-- <p>{{ loginflag }}</p> -->
     </el-container>
     <el-dialog
       title="用户登陆"
@@ -55,12 +62,14 @@
 <script>
 // @ is an alias to /src
 import Header from '@/components/Header.vue'
-import { mapState } from 'vuex'
+import MyMenu from '@/components/Menu.vue'
+import { mapState, mapMutations, mapGetters } from 'vuex'
 
 export default {
   name: 'Home',
   components: {
-    Header
+    Header,
+    MyMenu
   },
   data () {
     return {
@@ -75,13 +84,16 @@ export default {
   computed: {
     ...mapState([
       'loginflag'
-    ])
+    ]),
+    ...mapGetters('user', ['getMemberInfo'])
   },
   methods: {
+    ...mapMutations('user', ['setMemberInfo']),
     onSubmit () {
       if (this.form.username === '20120262' && this.form.password === '123') {
         this.dialogVisiable = false
         this.$store.commit('login', { username: this.form.username })
+        this.$store.commit('user/setMemberInfo', { userStatus: 0, userLevel: 0 })
         if (this.form.isSave) {
           localStorage.setItem('username', this.form.username)
         }
