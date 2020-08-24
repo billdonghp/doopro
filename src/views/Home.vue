@@ -6,12 +6,15 @@
     > -->
     <el-container>
       <el-header>
-        <Header
-          @loginevent="loginevent"
-        />
+        <Header @loginevent="loginevent" />
       </el-header>
       <el-container>
-        <el-aside width="200px"><MyMenu></MyMenu></el-aside>
+        <el-aside width="200px">
+          <keep-alive>
+            <component v-bind:is="currentTabComponent"></component>
+          </keep-alive>
+          <!-- <MyMenu></MyMenu> -->
+        </el-aside>
         <el-main>
           <p>你好</p>
           <h1>尊敬的 {{ getMemberInfo }} 用户</h1>
@@ -32,7 +35,7 @@
       >
         <el-form-item>
           <el-input
-            v-model="form.username"
+            v-model="form.name"
             placeholder="用户名"
           ></el-input>
         </el-form-item>
@@ -76,12 +79,19 @@ export default {
       dialogVisiable: false,
       form: {
         isSave: false,
-        username: '',
+        name: '',
         password: ''
       }
     }
   },
   computed: {
+    currentTabComponent () {
+      if (!this.dialogVisiable) {
+        return 'MyMenu'
+      } else {
+        return null
+      }
+    },
     ...mapState([
       'loginflag'
     ]),
@@ -90,14 +100,26 @@ export default {
   methods: {
     ...mapMutations('user', ['setMemberInfo']),
     onSubmit () {
-      if (this.form.username === '20120262' && this.form.password === '123') {
-        this.dialogVisiable = false
-        this.$store.commit('login', { username: this.form.username })
-        this.$store.commit('user/setMemberInfo', { userStatus: 0, userLevel: 0 })
-        if (this.form.isSave) {
-          localStorage.setItem('username', this.form.username)
-        }
+      this.$axios({
+        url: 'doopro/user',
+        method: 'post',
+        data: this.form
       }
+      ).then(res => {
+        console.log(res)
+        if (res.data.info === 'ok') {
+          this.dialogVisiable = false
+          this.$store.commit('login', { name: this.form.name })
+          this.$store.commit('user/setMemberInfo', { userStatus: 0, userLevel: 0 })
+          if (this.form.isSave) {
+            localStorage.setItem('name', this.form.name)
+          }
+        } else {
+          alert(res.data.info)
+        }
+      }).catch(err => {
+        console.log(err)
+      })
     },
     handleClose () {
       this.dialogVisiable = false
@@ -107,7 +129,7 @@ export default {
     }
   },
   mounted () {
-    if (localStorage.getItem('username')) {
+    if (localStorage.getItem('name')) {
       this.dialogVisiable = false
     } else {
       this.dialogVisiable = true

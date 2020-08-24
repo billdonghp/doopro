@@ -8,7 +8,8 @@ import 'element-ui/lib/theme-chalk/index.css'
 
 Vue.config.productionTip = false
 Vue.use(ElementUI)
-axios.defaults.baseURL = 'http://newdoopro.doosaninfracore.cn:8080/doopro/'
+axios.defaults.baseURL = 'http://localhost/api/'
+axios.defaults.withCredentials = true
 Vue.prototype.$axios = axios
 
 router.beforeEach((to, from, next) => {

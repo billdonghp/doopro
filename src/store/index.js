@@ -36,7 +36,7 @@ export default new Vuex.Store({
     },
     login (state, payload) {
       state.loginflag = true
-      state.token = payload.username
+      state.token = payload.name
       // console.log(state.token)
     },
     logout (state) {

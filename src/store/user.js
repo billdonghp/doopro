@@ -15,7 +15,7 @@ const getters = {
     return state.token
   },
   getUserInfo (state, getters, rootState) {
-    return `username: ${state.username}  token: ${getters.getToken}`
+    return `name: ${rootState.token} `
   },
   getMemberInfo (state) {
     switch (state.userStatus) {
