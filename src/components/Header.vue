@@ -23,7 +23,7 @@
                 <el-dropdown-item command="about">有形效果产出方法</el-dropdown-item>
                 <el-dropdown-item command="info">评价基准</el-dropdown-item>
                 <el-dropdown-item command="user">用户手册</el-dropdown-item>
-                <el-dropdown-item>获取帮助</el-dropdown-item>
+                <el-dropdown-item command="lesson">获取帮助</el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
           </el-col>

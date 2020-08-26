@@ -1,13 +1,13 @@
 <template>
   <div>
-    <p>{{ donebooksByName('python') }}</p>
+    <p class="p">{{ donebooksByName('python') }}</p>
     <ul>
       <li
         v-for="(item,index) in donebooksByName('python')"
         :key="index"
       >{{item.name}} : {{item.price}}</li>
     </ul>
-    <p>{{ getUserInfo }}</p>
+    <p>{{ getS }}</p>
     <div>
     <el-button-group>
       <el-button
@@ -75,10 +75,20 @@ export default {
     ...mapGetters([
       'donebooksCount',
       'donebooksByName'
-    ])
+    ]),
+    getS () {
+      return 25 * (2 * 0.1 * 2 + 2 * 0.08 * 2)
+    }
   },
   mounted () {
     console.log(this.userStatus, this.userLevel, '-------->')
   }
 }
 </script>
+<style lang="scss">
+  $color: darken(#428bca, 6.5%) !default; // #337ab7
+  p{
+    color: $color;
+    font-size: 18px;
+  }
+</style>
